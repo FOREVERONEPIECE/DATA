@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录页面</title>
+</head>
+<body>
+<div class="layui-col-md4">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>
+            <i class="layui-icon layui-icon-user"></i>
+            <b>用户登录</b>
+        </legend>
+    </fieldset>
+    <div class="layui-form layui-col-md10">
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="loginname">用户名<i class="layui-icon layui-icon-username"></i></label>
+            <div class="layui-input-block">
+                <input  id="loginname" name="loginname" required lay-verify="required"  class="layui-input" placeholder="请输入用户名">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="password">密码<i class="layui-icon layui-icon-password"></i></label>
+            <div class="layui-input-block">
+                <input name="password" type="password" required lay-verify="required|pass" id="password" class="layui-input" placeholder="请输入密码,不少于6位">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-form-block layui-col-md-offset4">
+                <button id="btnSubmit" lay-submit lay-filter="login" class="layui-btn layui-btn-primary layui-bg-blue">
+                    <i class="layui-icon layui-icon-login-qq"></i>
+                    登录(login)
+                    </button>
+            </div>
+            <div class="layui-col-md-offset9">
+                <a href="/page/user/add" class="link" target="_self">注册新帐号</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<link rel="stylesheet" href="/js/layui/css/layui.css"><html>
+    <script type="application/javascript" src="/js/layui/layui.js"></script>
+
+    <script type="application/javascript" src="/js/logic/loginUser.js"></script>
+    <html>

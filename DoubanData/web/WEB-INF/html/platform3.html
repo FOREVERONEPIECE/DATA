@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="/js/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">layui 后台布局</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="platform3">用户管理</a></li>
+            <li class="layui-nav-item"><a href="platform4">用户添加</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="login">登陆</a></li>
+        </ul>
+    </div>
+
+    <<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <li class="layui-nav-item layui-nav-itemed">
+                <a class="" href="javascript:;">豆瓣</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="platform5">电影Top250数据分析</a></dd>
+                    <dd><a href="platform6">电影数据分析</a></dd>
+                    <dd><a href="platform1">电影Top250</a></dd>
+                    <dd><a href="platform2">电影</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">豆瓣音乐</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="http://localhost:9483/page/platform10">音乐</a></dd>
+                    <dd><a href="http://localhost:9483/page/platform11">音乐数据分析</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div class="layui-row">
+            <div class="layui-col-md8">
+                <div class="layui-form">
+                    <div class="layui-form-item layui-inline">
+                        <input type="text"id="name"class="layui-input"placeholder="用户名或昵称">
+
+                    </div>
+                    <div class="layui-form-item layui-inline">
+                        <select id="usertype" class="layui-select">
+                            <option value="-1" selected>全部</option>
+                            <option value="1">普通用户</option>
+                            <option value="0">平台管理员</option>
+                        </select>
+                    </div>
+
+
+                    <div class="layui-form-item layui-inline">
+                        <button id="btnSearch"type="button"class="layui-btn layui-btn-normal layui-bg-blue">
+                            <i class="layui-icon layui-icon-app"></i>
+                            检索
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md8">
+                <table id="tblResult"class="layui-table" lay-filter="tblResult"></table>
+            </div>
+        </div>
+        <div id="divUserInfo" style="display: none; margin: 10px;">
+            <div class="layui-form layui-col-md12" lay-filter="userInfo">
+                <input type="hidden" name="id" id="hidId"/>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"for="tbxUid">用户名<i class="layui-icon layui-icon-username"></i></label>
+                    <div class="layui-input-block">
+                        <input name="uid" id="tbxUid" readonly class="layui-input" placeholder="请输入用户名">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" for="tbxUid">显示名称<i class="layui-icon layui-icon-note"></i> </label>
+                    <div class="layui-input-block">
+                        <input name="nickName" id="tbxNickName" class="layui-input" placeholder="请输入显示名称，默认与用户名相同">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © layui.com - 底部固定区域
+        </div>
+    </div>
+    <script src="/js/layui/layui.js"></script>
+    <script type="application/javascript"src="/js/logic/searchUser.js"></script>
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function(){
+            var element = layui.element;
+
+        });
+    </script>
+</body>
+</html>

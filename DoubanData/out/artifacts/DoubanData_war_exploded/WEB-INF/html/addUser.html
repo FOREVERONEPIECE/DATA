@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增用户</title>
+</head>
+<body>
+<div class="layui-row">
+    <div class="layui-col-md8">
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>
+                <i class="layui-icon layui-icon-user"></i>
+                <b>新增用户</b>
+            </legend>
+        </fieldset>
+        <div class="layui-form layui-col-md6">
+            <div class="layui-form-item">
+                <label class="layui-from-label" for="tbxUid">用户名*<i class="layui-icon layui-icon-username"></i></label>
+                <div class="layui-input-block">
+                    <input name="uid" id="tbxUid" required lay-verify="required" class="layui-input" placeholder="请输入用户名" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" for="tbxPwd">密码<i class="layui-icon layui-icon-pqssword"></i></label>
+                <div class="layui-input-block">
+                    <input name="pwd" type="password" required lay-verify="required|pass" id="tbxPwd" class="layui-input" placeholder="请输入密码，不少于六位">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" for="tbxPwd">确认密码<i class="layui-icon layui-icon-pqssword"></i></label>
+                <div class="layui-input-block">
+                    <input name="tbxRePwd" type="password" required lay-verify="required|checkPass" class="layui-input" placeholder="请再次输入密码">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" for="tbxUid">显示名称<i class="layui-icon layui-icon-note"></i></label>
+                <div class="layui-input-block">
+                    <input name="nickName" type="tbxNickName"  class="layui-input" placeholder="请输入显示名称，默认与用户名相同">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" for="selType">用户类型<i class="layui-icon layui-icon-set"></i></label>
+                <div class="layui-input-block">
+                    <select class="layui-select layui-input layui-input-inline" id="selType" name="userType">
+                        <option value="1" selected>访问用户</option>
+                        <option value="0">平台管理员</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button id="btnSubmit" lay-submit lay-filter="save" class="layui-btn layui-btn-primary layui-bg-blue">
+                        <i class="layui-icon layui-icon-edit"></i>
+                        保存(Save)
+                    </button>
+                    <button id="btnReset" class="layui-btn layui-btn-primary layui-bg-orange">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置(Reset)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<link rel="stylesheet" href="/js/layui/css/layui.css"></html>
+<script type="application/javascript" src="/js/layui/layui.js" ></script>
+<script type="application/javascript" src="/js/logic/addUser.js"></script>
+</html>

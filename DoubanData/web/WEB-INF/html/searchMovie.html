@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户检索</title>
+</head>
+<body>
+<div class="layui-row">
+    <div class="layui-col-md8">
+        <div class="layui-form">
+            <div class="layui-form-item layui-inline">
+                <input type="text"id="name"class="layui-input"placeholder="电影名称">
+
+            </div>
+            <div class="layui-form-item layui-inline">
+                <input type="text" id="years" readonly class="layui-input" placeholder="发行年份">
+            </div>
+            <div class="layui-form-item layui-inline">
+                <input type="text" id="sort" class="layui-input" placeholder="类型">
+            </div>
+            <div class="layui-form-item layui-inline">
+                <select id="areas" class="layui-select">
+                    <option value="-1" selected>全部</option>
+                    <option value="中国">中国</option>
+                    <option value="美国">美国</option>
+                    <option value="日本">日本</option>
+                </select>
+            </div>
+            <div class="layui-form-item layui-inline">
+                <button id="btnSearch"type="button"class="layui-btn layui-btn-normal layui-bg-blue">
+                    <i class="layui-icon layui-icon-app"></i>
+                    检索
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layui-row">
+    <div class="layui-col-md8">
+        <table id="tblResult"class="layui-table"lay-size="lg"></table>
+    </div>
+</div>
+</body>
+<link rel="stylesheet"href="/js/layui/css/layui.css"></html>
+<script type="application/javascript"src="/js/layui/layui.js"></script>
+<script type="application/javascript"src="/js/logic/searchMovie.js"></script>
+</html>

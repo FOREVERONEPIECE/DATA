@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iedu.project.mapper.MovieTvMapper">
+  <resultMap id="BaseResultMap" type="com.iedu.project.entity.MovieTv">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="movie_name" jdbcType="VARCHAR" property="movieName" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
+    <result column="actor" jdbcType="VARCHAR" property="actor" />
+    <result column="times" jdbcType="VARCHAR" property="times" />
+    <result column="starttime" jdbcType="VARCHAR" property="starttime" />
+    <result column="evaluate" jdbcType="VARCHAR" property="evaluate" />
+    <result column="rating_num" jdbcType="VARCHAR" property="ratingNum" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
+    <result column="languages" jdbcType="VARCHAR" property="languages" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, movie_name, director, editor, actor, times, starttime, evaluate, rating_num, 
+    country, languages, summary
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from movie_tv
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from movie_tv
+    order by id
+    LIMIT #{begin},#{limit}
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from movie_tv
+    <where>
+      <if test="example.name !=null and example.name != ''">
+        <bind name="likename" value="'%' + example.name + '%'"/>
+        and movie_name like #{likename}
+      </if>
+      <if test="example.language !=null and example.language != ''">
+      <bind name="likename2" value="'%' + example.language + '%'"/>
+      and languages like #{likename2}
+    </if>
+      <if test="example.countrys !=null and example.countrys != '-1'">
+        <bind name="likename1" value="'%' + example.countrys + '%'"/>
+        and country like #{likename1}
+      </if>
+      <if test="example.actor !=null and example.actor != ''">
+        <bind name="likename3" value="'%' + example.actor + '%'"/>
+        and actor like #{likename3}
+      </if>
+    </where>
+    order by id
+    LIMIT #{begin},#{limit}
+  </select>
+  <select id="selectExampleCount" resultType="int">
+    select
+    count(1)
+    from movie_tv
+    <where>
+      <if test="name!= null and name != '' ">
+        <bind name="likename" value="'%'+ name + '%'"/>
+        and movie_name like #{likename}
+      </if>
+      <if test="language!= null and language != '' ">
+        <bind name="likename2" value="'%'+ language + '%'"/>
+        and languages like #{likename2}
+      </if>
+      <if test="countrys!= null and countrys != '-1' ">
+        <bind name="likename1" value="'%'+ countrys + '%'"/>
+        and country like #{likename1}
+      </if>
+      <if test="actor!= null and actor != '-1' ">
+        <bind name="likename3" value="'%'+ actor + '%'"/>
+        and actor like #{likename3}
+      </if>
+    </where>
+  </select>
+  <select id="selectAllcount" resultType="int">
+    select
+    count(1)
+    from movie_tv
+  </select>
+  <select id="selectByRating" parameterType="int" resultType="java.util.Map">
+    select movie_name as mns,rating_num as rating
+    from movie_top250
+  </select>
+  <select id="selectByArea" parameterType="int" resultType="java.util.Map">
+    select count(1) as total
+          ,country
+          from movie_tv
+          group by country
+          having country !=''
+          order by count(1) desc
+  </select>
+  <select id="selectByLan" parameterType="int" resultType="java.util.Map">
+    select count(1) as total
+          ,languages
+          from movie_tv
+          group by languages
+          having languages !=''
+          order by count(1) desc
+  </select>
+  <select id="selectByEle" parameterType="int" resultType="java.util.Map">
+    select evaluate as total
+          ,movie_name as mns
+          from movie_tv
+          where evaluate !=''
+          order by evaluate desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from movie_tv
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.iedu.project.entity.MovieTv">
+    insert into movie_tv (id, movie_name, director, 
+      editor, actor, times, 
+      starttime, evaluate, rating_num, 
+      country, languages, summary
+      )
+    values (#{id,jdbcType=VARCHAR}, #{movieName,jdbcType=VARCHAR}, #{director,jdbcType=VARCHAR}, 
+      #{editor,jdbcType=VARCHAR}, #{actor,jdbcType=VARCHAR}, #{times,jdbcType=VARCHAR}, 
+      #{starttime,jdbcType=VARCHAR}, #{evaluate,jdbcType=VARCHAR}, #{ratingNum,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{languages,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iedu.project.entity.MovieTv">
+    insert into movie_tv
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="movieName != null">
+        movie_name,
+      </if>
+      <if test="director != null">
+        director,
+      </if>
+      <if test="editor != null">
+        editor,
+      </if>
+      <if test="actor != null">
+        actor,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="evaluate != null">
+        evaluate,
+      </if>
+      <if test="ratingNum != null">
+        rating_num,
+      </if>
+      <if test="country != null">
+        country,
+      </if>
+      <if test="languages != null">
+        languages,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="movieName != null">
+        #{movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null">
+        #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null">
+        #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="actor != null">
+        #{actor,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluate != null">
+        #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingNum != null">
+        #{ratingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="languages != null">
+        #{languages,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iedu.project.entity.MovieTv">
+    update movie_tv
+    <set>
+      <if test="movieName != null">
+        movie_name = #{movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null">
+        director = #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="editor != null">
+        editor = #{editor,jdbcType=VARCHAR},
+      </if>
+      <if test="actor != null">
+        actor = #{actor,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluate != null">
+        evaluate = #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingNum != null">
+        rating_num = #{ratingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="languages != null">
+        languages = #{languages,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iedu.project.entity.MovieTv">
+    update movie_tv
+    set movie_name = #{movieName,jdbcType=VARCHAR},
+      director = #{director,jdbcType=VARCHAR},
+      editor = #{editor,jdbcType=VARCHAR},
+      actor = #{actor,jdbcType=VARCHAR},
+      times = #{times,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=VARCHAR},
+      evaluate = #{evaluate,jdbcType=VARCHAR},
+      rating_num = #{ratingNum,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      languages = #{languages,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

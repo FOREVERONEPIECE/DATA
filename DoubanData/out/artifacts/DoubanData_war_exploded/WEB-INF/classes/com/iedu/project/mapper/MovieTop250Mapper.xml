@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iedu.project.mapper.MovieTop250Mapper">
+  <resultMap id="BaseResultMap" type="com.iedu.project.entity.MovieTop250">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="numbers" jdbcType="VARCHAR" property="numbers" />
+    <result column="movie_name" jdbcType="VARCHAR" property="movieName" />
+    <result column="years" jdbcType="VARCHAR" property="years" />
+    <result column="rating_num" jdbcType="VARCHAR" property="ratingNum" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
+    <result column="descs" jdbcType="VARCHAR" property="descs" />
+    <result column="evaluate" jdbcType="VARCHAR" property="evaluate" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="sorts" jdbcType="VARCHAR" property="sorts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, numbers, movie_name, `years`, rating_num, director, link, descs, evaluate, area, 
+    sorts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from movie_top250
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from movie_top250
+    order by id
+    LIMIT #{begin},#{limit}
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from movie_top250
+    <where>
+      <if test="example.name !=null and example.name != ''">
+        <bind name="likename" value="'%' + example.name + '%'"/>
+        and movie_name like #{likename}
+      </if>
+      <if test="example.sort !=null and example.sort != ''">
+        <bind name="likename2" value="'%' + example.sort + '%'"/>
+        and sorts like #{likename2}
+      </if>
+      <if test="example.areas !=null and example.areas != '-1'">
+        <bind name="likename1" value="'%' + example.areas + '%'"/>
+        and area like #{likename1}
+      </if>
+      and years &gt;=#{example.beginYear} and years &lt;=#{example.endYear}
+    </where>
+    order by id
+    LIMIT #{begin},#{limit}
+  </select>
+  <select id="selectExampleCount" resultType="int">
+    select
+    count(1)
+    from movie_top250
+    <where>
+      <if test="name!= null and name != '' ">
+        <bind name="likename" value="'%'+ name + '%'"/>
+        and movie_name like #{likename}
+      </if>
+      <if test="sort!= null and sort != '' ">
+        <bind name="likename2" value="'%'+ sort + '%'"/>
+        and sorts like #{likename2}
+      </if>
+      <if test="areas!= null and areas != '-1' ">
+        <bind name="likename1" value="'%'+ areas + '%'"/>
+        and area like #{likename1}
+      </if>
+      and years &gt;=#{beginYear} and years &lt;=#{endYear}
+    </where>
+  </select>
+  <select id="selectAllcount" resultType="int">
+    select
+    count(1)
+    from movie_top250
+  </select>
+  <select id="selectByYearGroup" parameterType="int" resultType="java.util.Map">
+    select years
+          ,count(1) as total
+          from movie_top250
+          group by years
+          order by years desc
+          limit 0,#{year}
+  </select>
+  <select id="selectByRating" parameterType="int" resultType="java.util.Map">
+    select numbers,rating_num as rating
+    from movie_top250
+  </select>
+  <select id="selectByArea" parameterType="int" resultType="java.util.Map">
+    select count(1) as total
+          ,area
+          from movie_top250
+          group by area
+          having area !=''
+          order by count(1) desc
+  </select>
+  <select id="selectByEle" parameterType="int" resultType="java.util.Map">
+    select evaluate-'人评价' as total
+          ,movie_name as mns
+          from movie_top250
+          order by evaluate-'人评价' desc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from movie_top250
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.iedu.project.entity.MovieTop250">
+    insert into movie_top250 (id, numbers, movie_name, 
+      `years`, rating_num, director, 
+      link, descs, evaluate, 
+      area, sorts)
+    values (#{id,jdbcType=VARCHAR}, #{numbers,jdbcType=VARCHAR}, #{movieName,jdbcType=VARCHAR}, 
+      #{years,jdbcType=VARCHAR}, #{ratingNum,jdbcType=VARCHAR}, #{director,jdbcType=VARCHAR}, 
+      #{link,jdbcType=VARCHAR}, #{descs,jdbcType=VARCHAR}, #{evaluate,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{sorts,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iedu.project.entity.MovieTop250">
+    insert into movie_top250
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="numbers != null">
+        numbers,
+      </if>
+      <if test="movieName != null">
+        movie_name,
+      </if>
+      <if test="years != null">
+        `years`,
+      </if>
+      <if test="ratingNum != null">
+        rating_num,
+      </if>
+      <if test="director != null">
+        director,
+      </if>
+      <if test="link != null">
+        link,
+      </if>
+      <if test="descs != null">
+        descs,
+      </if>
+      <if test="evaluate != null">
+        evaluate,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="sorts != null">
+        sorts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="numbers != null">
+        #{numbers,jdbcType=VARCHAR},
+      </if>
+      <if test="movieName != null">
+        #{movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="years != null">
+        #{years,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingNum != null">
+        #{ratingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null">
+        #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null">
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+        #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluate != null">
+        #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="sorts != null">
+        #{sorts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iedu.project.entity.MovieTop250">
+    update movie_top250
+    <set>
+      <if test="numbers != null">
+        numbers = #{numbers,jdbcType=VARCHAR},
+      </if>
+      <if test="movieName != null">
+        movie_name = #{movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="years != null">
+        `years` = #{years,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingNum != null">
+        rating_num = #{ratingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null">
+        director = #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null">
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null">
+        descs = #{descs,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluate != null">
+        evaluate = #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="sorts != null">
+        sorts = #{sorts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iedu.project.entity.MovieTop250">
+    update movie_top250
+    set numbers = #{numbers,jdbcType=VARCHAR},
+      movie_name = #{movieName,jdbcType=VARCHAR},
+      `years` = #{years,jdbcType=VARCHAR},
+      rating_num = #{ratingNum,jdbcType=VARCHAR},
+      director = #{director,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR},
+      descs = #{descs,jdbcType=VARCHAR},
+      evaluate = #{evaluate,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      sorts = #{sorts,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: xmlns: xmlns: xmlns: xmlns: xmlns:>
+<head>
+    <meta charset="UTF-8">
+    <title>用户检索</title>
+</head>
+<body>
+<div class="layui-row">
+    <div class="layui-col-md8">
+        <div class="layui-form">
+            <div class="layui-form-item layui-inline">
+            <input type="text"id="name"class="layui-input"placeholder="用户名或昵称">
+
+            </div>
+            <div class="layui-form-item layui-inline">
+                <select id="usertype" class="layui-select">
+                    <option value="-1" selected>全部</option>
+                    <option value="1">普通用户</option>
+                    <option value="0">平台管理员</option>
+                    </select>
+            </div>
+
+
+            <div class="layui-form-item layui-inline">
+                <button id="btnSearch"type="button"class="layui-btn layui-btn-normal layui-bg-blue">
+                    <i class="layui-icon layui-icon-app"></i>
+                    检索
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="layui-row">
+        <div class="layui-col-md8">
+            <table id="tblResult"class="layui-table" lay-filter="tblResult"></table>
+        </div>
+    </div>
+<div id="divUserInfo" style="display: none; margin: 10px;">
+    <div class="layui-form layui-col-md12" lay-filter="userInfo">
+        <input type="hidden" name="id" id="hidId"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label"for="tbxUid">用户名<i class="layui-icon layui-icon-username"></i></label>
+            <div class="layui-input-block">
+                <input name="uid" id="tbxUid" readonly class="layui-input" placeholder="请输入用户名">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="tbxUid">显示名称<i class="layui-icon layui-icon-note"></i> </label>
+            <div class="layui-input-block">
+                <input name="nickName" id="tbxNickName" class="layui-input" placeholder="请输入显示名称，默认与用户名相同">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<link rel="stylesheet"href="/js/layui/css/layui.css"></html>
+<script type="application/javascript"src="/js/layui/layui.js"></script>
+<script type="application/javascript"src="/js/logic/searchUser.js"></script>
+</html>

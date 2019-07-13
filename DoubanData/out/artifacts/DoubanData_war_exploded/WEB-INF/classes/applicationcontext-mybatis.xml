@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.iedu.project.mapper, com.iedu.project.entity"/>
+    <context:annotation-config/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="username" value="07team07"/>
+        <property name="password" value="07team07"/>
+        <property name="url" value="jdbc:mysql://www.91iedu.com:3391/07team07?useSSL=false"/>
+        <property name="maxActive" value="10"/>
+        <property name="keepAlive" value="true"/>
+
+    </bean>
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:com/iedu/project/mapper/*.xml"/>
+        <property name="configuration" ref="mybatisConfig"/>
+
+    </bean>
+    <bean id="mybatisConfig" class="org.apache.ibatis.session.Configuration">
+        <property name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"/>
+        <property name="cacheEnabled" value="true"/>
+
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="com.iedu.project.mapper"/>
+    </bean>
+
+</beans>
